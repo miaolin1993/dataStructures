@@ -18,5 +18,7 @@
     "url": "https://github.com/miaolin1993/dataStructures/issues"
   },
   "homepage": "https://github.com/miaolin1993/dataStructures#readme",
-  "dependencies": {}
+  "dependencies": {
+    "typescript": "^4.3.5"
+  }
 }
