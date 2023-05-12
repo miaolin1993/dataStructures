@@ -2,6 +2,10 @@
 const arr1 = [1, 2, 3, 4, 5]
 const arr2 = [3, 4, 5]
 const arr3 = [14, 2, 30, 98, 112, 32, 9, 22, 31]
+console.log(arr2.reduce((p, n) => {
+  console.log(p, n)
+  return p + n
+}))
 
 /**
  * every方法，迭代每个元素，直到返回false，与some方法正好相反

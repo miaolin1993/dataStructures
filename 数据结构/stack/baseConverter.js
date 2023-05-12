@@ -13,13 +13,13 @@ function baseConverter(num, base) {
   let number = num
   let binaryString = ''
   if (!(base >= 2 && base <= 36)) return ''
-
+  // 数据除以进制获取余数， 只要大于0就持续入栈
   while (number > 0) {
     rem = Math.floor(number % base)
     remStack.push(rem)
     number = Math.floor(number / base)
   }
-
+  // 完成全部入栈后，从栈顶开始取出元素拼接
   while (!remStack.isEmpty()) {
     binaryString += digits[remStack.pop()]
   }
@@ -28,4 +28,6 @@ function baseConverter(num, base) {
   return binaryString
 }
 
-baseConverter(100345, 16)
+baseConverter(50, 2)
+
+// 50 110010

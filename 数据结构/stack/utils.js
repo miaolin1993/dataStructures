@@ -3,12 +3,14 @@ export class Stack {
     this.items = []
     this.count = 0
   }
+
   push(item) {
     this.items.push(item)
   }
   pop() {
     return this.items.pop()
   }
+  // 返回栈顶
   peek() {
     return this.items[this.items.length - 1]
   }
