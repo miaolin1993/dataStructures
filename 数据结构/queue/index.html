@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./index.js"></script>
+  <script>
+    const q = new Queue()
+    // 击鼓传花
+    const game = (list, num) => {
+      // 1.先将数组中内容加入到队列
+      list.forEach(val => q.enqueue(val))
+      // 最终要剩下一个，所以只要大于1游戏就要继续进行
+      while(q.size() > 1) {
+        for (let i = 0; i < num; i++) {
+          // 每进行一次将首位元素移到末尾
+          q.enqueue(q.dequeue())
+        }
+        // 全部次数结束后，剩余的首个就是当前轮的被淘汰者
+        console.log(`被淘汰的是：${q.dequeue()}`)
+      }
+      // 全部都执行结束后，剩余的就是获胜者
+      console.log('最终获胜者是：' + q.dequeue())
+    }
+    game(['x1', 'x2', 'x3', 'x4', 'x5'], 6)
+  </script>
+</body>
+</html>
