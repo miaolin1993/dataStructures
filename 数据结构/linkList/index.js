@@ -4,7 +4,7 @@ class Node {
     this.next = null
   }
 }
-
+// 单向链表
 class LinkedList {
   constructor() {
     this.count = 0
@@ -117,4 +117,202 @@ class LinkedList {
     return this.head
   }
 
+}
+
+// 双向链表
+class DoubleNode extends Node {
+  constructor(element) {
+    super(element)
+    this.prev = null
+  }
+}
+
+class DoubleLinkList extends LinkedList {
+  constructor() {
+    super()
+    this.tail = null
+  }
+
+  getHead() {
+    return this.head
+  }
+
+  getTail() {
+    return this.tail
+  }
+
+  push(element) {
+    const node = new DoubleNode(element)
+    if (this.head === null) {
+      this.head = node
+      this.tail = node
+    } else {
+      // 将最后一个元素的next指向新插入节点
+      this.tail.next = node
+      // 新插入节点的上一个是原来的最后节点
+      node.prev = this.tail
+      // 将现在的最后节点替换为新插入节点
+      this.tail = node
+    }
+    this.count++
+  }
+
+  insert(element, index) {
+    if (index >= 0 && index <= this.count) {
+      const node = new DoubleNode(element)
+      let current = this.head
+
+      // 链表头部位置插入
+      if (index === 0) {
+        // 如果是个空链表
+        if (this.head === null) {
+          this.head = node
+          this.tail = node
+        } else {
+          // 头部插入，原头部元素上一元素指向新插入元素
+          this.head.prev = node
+          // 新插入元素的下一位置指向原head
+          node.next = this.head
+          // 更改头部元素
+          this.head = node
+        }
+
+      } else if (index === this.count) {
+        // 链表尾部位置插入
+        // 原尾部位置下一级指向新元素
+        this.tail.next = node
+        // 新元素上一级指向原尾部元素
+        node.prev = this.tail
+        // 更改尾部元素
+        this.tail = node
+
+      } else {
+        // 链表其他位置插入
+        // 获取插入位置上一个元素
+        const pre = this.getNodeAt(index - 1)
+        // 获取插入位置当前的元素
+        current = pre.next
+
+        // 有原上级节点建立联系
+        pre.next = node
+        node.prev = pre
+        // 与原当前节点建立联系
+        node.next = current
+        current.prev = node
+      }
+
+      this.count++
+      return node
+    }
+    return null
+  }
+
+  removeAt(index) {
+    if (index >= 0 && index < this.count) {
+      let current = this.head
+      // 删除头部
+      if (index === 0) {
+        // 将头部元素指向原来头部元素的next
+        this.head = this.head.next
+        if (this.count === 1) {
+          // 链表只有一个元素
+          this.tail = null
+        } else {
+          this.head.prev = null
+        }
+      } else if (index === this.count - 1) {
+        const pre = this.tail.prev
+        pre.next = null
+        this.tail = pre
+      } else {
+        const pre = this.getNodeAt(index - 1)
+        current = pre.next
+        pre.next = current.next
+        current.next.prev = pre
+      }
+      this.count--
+    }
+  }
+}
+// 循环链表
+class CyclicLinkList extends LinkedList {
+  constructor() {
+    super()
+  }
+
+  push(element) {
+    const node = new Node(element)
+    if (this.head === null) {
+      this.head = node
+      this.head.next = this.head
+    } else {
+      const last = this.getNodeAt(this.size() - 1)
+      last.next = node
+      node.next = this.head
+    }
+    this.count++
+    return node
+  }
+
+  insert(element, index) {
+    if (index >= 0 && index <= this.count) {
+      const node = new Node(element)
+      const last = this.getNodeAt(this.size() - 1)
+      let current = this.head
+      // 头部插入
+      if (index === 0) {
+        if (this.head === null) {
+          this.head = node
+          this.head.next = this.head
+        } else {
+          this.head = node
+          this.head.next = current
+          last.next = this.head
+        }
+      } else if (index === this.count) {
+        // 尾部插入
+        last.next = node
+        node.next = this.head
+      } else {
+        // 中间插入
+        const pre = this.getNodeAt(index - 1)
+        current = pre.next
+        pre.next = node
+        node.next = current
+      }
+      this.count++
+      return node
+    }
+    return null
+  }
+
+  removeAt(index) {
+    if (index >= 0 && index < this.count) {
+      const last = this.getNodeAt(this.size() - 1)
+      let current = this.head
+
+      if (index === 0) {
+        // 只有一个元素时
+        if (this.count === 1) {
+          this.head.next = null
+          this.head = null
+        } else {
+          this.head = current.next
+          last.next = this.head
+        }
+      } else if (index === this.count - 1) {
+        // 尾部删除
+        const pre = this.getNodeAt(index - 1)
+        pre.next = this.head
+      } else {
+        // 中间删除
+        const pre = this.getNodeAt(index - 1)
+        current = pre.next
+        pre.next = current.next
+      }
+      this.count--
+      return true
+    }
+    return null
+  }
 }
