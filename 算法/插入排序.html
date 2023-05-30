@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>插入排序</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 每一次跟前面对比，小就插入到前面，剩下最小的那个放在前面
+    function sort(list) {
+      let temp // 临时存储值
+      for (let i = 1; i < len; i++) {
+        temp = list[i]
+        let j = i
+        while(j > 0 && list[j - 1] > temp) {
+          list[j] = list[j - 1]
+          j--
+        }
+        list[j] = temp
+      }
+      return list
+    }
+    console.log(sort(arr))
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>归并排序</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 分而治之 将大数组分成小数组，直到只剩一个值，然后在依次合并
+    function mergeSort(list) {
+      if (list.length > 1) {
+        const lens = list.length
+        // 获取数据长度除2的值
+        const middle = Math.floor(lens / 2)
+        // 将一个大数组拆分成2个
+        // 递归调用如果能拆分继续拆分
+        const left = mergeSort(list.slice(0, middle))
+        const right = mergeSort(list.slice(middle, lens))
+        list = merge(left, right)
+      }
+      console.log(list)
+      return list
+    }
+
+    function merge(left, right) {
+      let i = 0
+      let j = 0
+      const result = []
+      while (i < left.length && j < right.length) {
+        // 两个数组对比大小，小的那个添加进临时数组，并且index++
+        result.push(left[i] < right[j] ? left[i++] : right[j++])
+        console.log(result)
+      }
+      // 找剩余的那个值，合并进数组后面
+      return result.concat(i < left.length ? left.slice(i) : right.slice(j))
+    }
+
+    mergeSort(arr)
+  </script>
+</body>
+</html>

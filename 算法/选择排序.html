@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选择排序</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 原址比较，找到最小值并放在第一位，再找第二小的值放在第二位，以此类推
+
+    function sort(list) {
+      // 定义一个用来标记最小索引值的变j量
+      let minIndex
+      for (let i = 0; i < len - 1; i++) {
+        minIndex = i
+        for (let j = i; j < len; j++) {
+          // 如果后面的值比当前标记最小索引的值大，则替换其为最小索引值
+          if (list[minIndex] > list[j]) {
+            minIndex = j
+          }
+        }
+        // 都比较完成后，交换位置
+        if (i !== minIndex) swap(list, i,minIndex)
+      }
+      return list
+    }
+
+    
+    console.log(sort(arr))
+
+  </script>
+</body>
+</html>
