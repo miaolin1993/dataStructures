@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基数排序</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 从每个数字的个位数开始对比，然后对比十位数，然后对比百位数依次类推，个位数小的先挑出来，十位数小的在挑出来====
+    function radixSort(list) {
+      const base = 10 // 固定好就10个桶
+      let counts = 1
+      let max = Math.max(...list)
+
+      // 当计数小于等于数组内最大值的时候就可以停止了
+      while(counts <= max) {
+        // 创建十个空桶，构建二维数组
+        const buckets = [...Array(10)].map(() => [])
+        for (let val of list) {
+          // 值除以1 取余base获取个位，除以10取余base获取十位
+          buckets[Math.floor(val / counts) % base].push(val)
+        }
+        // 修改list结果为上次处理之后的
+        list = [].concat(...buckets)
+        // 这里用来控制位数，首次是1，对比个位数，第二次是10对比十位，在下一次是100，对比百位数，
+        counts *= base
+      }
+      return list
+    }
+
+    console.log(radixSort(arr))
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>桶排序</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 分布式排序算法，将元素分成不同的小数组，再用简单的排序算法对每个小数组排序，最后合并
+    function bucketSort(list, size = 3) {
+      if (list.length < 2) return list
+
+      const bucket = createBucket(list, size)
+      return sortBucket(bucket)
+    }
+
+    function createBucket(list, size) {
+      let min = Math.min(...list)
+      let max = Math.max(...list)
+      // 创建桶的数量是 最大值减去最小值除以二 加上1
+      const counts = Math.floor((max - min)  / size) + 1
+      // 创建桶
+      const buckets = [...Array(counts)].map(() => [])
+
+      for (let i = 0; i < list.length; i++) {
+        // 将数据填充进入创建好的桶
+        const index = Math.floor(((list[i] - min) / size))
+        buckets[index].push(list[i])
+      }
+
+      return buckets
+    }
+
+    function sortBucket(list) {
+      let arrs = []
+      for (let i = 0; i < list.length; i++) {
+        if (list[i]) {
+          insertSort(list[i])
+          arrs = arrs.concat(...list[i])
+        }
+      }
+      return arrs.filter(val => val)
+    }
+    // 引入插入排序
+    function insertSort(list) {
+      let temp // 临时存储值
+      for (let i = 1; i < len; i++) {
+        temp = list[i]
+        let j = i
+        while(j > 0 && list[j - 1] > temp) {
+          list[j] = list[j - 1]
+          j--
+        }
+        list[j] = temp
+      }
+      return list
+    }
+
+    console.log(bucketSort(arr))
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>快速排序</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 取一个基准值，对比大小， 小的放左边，大的放右边
+    function quickSort(list) {
+      const lens = list.length
+      if (lens < 2) return list
+      const base = list[0] // 基准
+      // 跳过取出的基准值，取出所有比基准值大的和比基准值小的
+      const min = list.slice(1).filter(val => val <= base)
+      const max = list.slice(1).filter(val => val > base)
+
+      return quickSort(min).concat(base).concat(quickSort(max))
+    }
+
+    
+    console.log(quickSort(arr))
+  </script>
+</body>
+</html>

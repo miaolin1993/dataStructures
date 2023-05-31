@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>计数排序</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 创建临时数组，存储每个元素在原数组中出现的次数
+    function countSort(list) {
+      const lens = list.length
+      if (lens < 2) return list
+      const max = findMax(list)
+      // 按数组最大值+1的数量创建新数组
+      const counts = new Array(max + 1)
+      list.forEach(val => {
+        if (!counts[val]) counts[val] = 0
+        counts[val]++
+      })
+
+      const newList = []
+      let sortIndex = 0
+      counts.forEach((val, index) => {
+        while(val > 0) {
+          newList[sortIndex++] = index
+          val--
+        }
+      })
+
+      return newList
+    }
+    // 寻找数组中最大值
+    function findMax(list) {
+      let base = list[0]
+      list.forEach(val => {
+        if (val > base) base = val
+      })
+      return base
+    }
+
+    
+    console.log(countSort(arr))
+  </script>
+</body>
+</html>
