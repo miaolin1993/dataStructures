@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>随机算法</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    // 从最后一个位置开始，以随机一个位置交换，这个随机位置比当前位置小，这样就会保证随机过的位置不会重复被随机到
+    function random(list) {
+      for (let i = list.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1))
+        swap(list, i, randomIndex)
+      }
+      return list
+    }
+
+    
+    console.log(random(arr))
+  </script>
+</body>
+</html>

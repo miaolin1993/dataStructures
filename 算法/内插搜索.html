@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内插搜索</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    function search(val, list, start, end) {
+      start = start || 0
+      end = end || list.length - 1
+      // 对数组进行排序，排完了后数组内是从小到大的，这样才能用二分法
+      list = quickSort(list)
+      console.log('排序后的数组:', list)
+
+      // 控制范围开始值小于等于结束值
+      if (start <= end && val >= list[start] && val <= list[end]) {
+        if (val === list[start]) return start
+        if (val === list[end]) return end
+
+        // 对比二分法，就下面这行不一样
+        const middle = start + Math.floor((val - list[start]) / (list[end] - list[start]) * (end - start))
+        if (list[middle] === val) {
+          return middle
+          // 如果中间值比要查找的值大，说明要往前面小的那些里去找，就从开始到中间值减一去差
+        } else if (list[middle] > val) {
+          return search(val, list, start, middle - 1)
+        } else {
+          return search(val, list, middle + 1, end)
+        }
+
+      }
+      return -1
+    }
+
+    
+    console.log(search(12, arr))
+  </script>
+</body>
+</html>
